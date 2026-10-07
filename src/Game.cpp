@@ -201,7 +201,6 @@ void Game::generateNewApple()
 
     const uint16_t numemptyPos = width*height - this->snake->getLength();
     if (numemptyPos == 0) return;
-    //Position *emptyPositions = new Position[numemptyPos];
     std::unique_ptr<Position[]> emptyPositions = std::make_unique<Position[]>(numemptyPos);
 
     uint16_t idx = 0;
