@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <random>
+#include <memory>
 
 #include "Position.hpp"
 #include "World.hpp"
@@ -200,7 +201,8 @@ void Game::generateNewApple()
 
     const uint16_t numemptyPos = width*height - this->snake->getLength();
     if (numemptyPos == 0) return;
-    Position *emptyPositions = new Position[numemptyPos];
+    //Position *emptyPositions = new Position[numemptyPos];
+    std::unique_ptr<Position[]> emptyPositions = std::make_unique<Position[]>(numemptyPos);
 
     uint16_t idx = 0;
     for(uint8_t i = 0; i < width; i++)
@@ -222,7 +224,6 @@ void Game::generateNewApple()
     this->applePos = emptyPositions[randomIndex];
     std::cout << "New apple at [" << static_cast<int>(this->applePos.x) << ", " << 
         static_cast<int>(this->applePos.y) << "]\n" << std::endl;
-    delete[] emptyPositions;
 }
 
 void Game::gameOver()
