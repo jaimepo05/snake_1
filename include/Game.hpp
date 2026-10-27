@@ -33,10 +33,6 @@ constexpr uint32_t OFFSET_MAP_PX = (WINDOW_WIDTH_PX - WINDOW_HEIGHT_PX)/2;
 constexpr uint16_t CELL_LENGTH_PX = WINDOW_HEIGHT_PX / HEIGHT_SNAKE_1; // 40x40 pixels
 
 
-/**
- * @brief 
- * 
- */
 class Game {
 public: 
     Game(Snake *snake, World *world, Position applePos_init);

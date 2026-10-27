@@ -6,8 +6,8 @@
 Snake::Snake(Position pos0, Position pos1, Position pos2, Position pos3, uint8_t width, uint8_t height,
     int8_t dir_x_o, int8_t dir_y_o)
 {
-    this->dir_x = dir_x_o;
-    this->dir_y = dir_y_o;
+    this->dir_x.push(dir_x_o);
+    this->dir_y.push(dir_y_o);
     this->length = 4;
 
     this->body = new Position[width*height];
@@ -29,22 +29,39 @@ Position Snake::getPosInIdx(uint16_t idx)
 
 int8_t Snake::getDirX()
 {
-    return dir_x;
+    if(this->dir_x.empty()) return 0;
+
+    return this->dir_x.back();
 }
 
 void Snake::setDirX(int8_t dir_x)
 {
-    this->dir_x = dir_x;
+    this->dir_x.push(dir_x);
 }
 
 int8_t Snake::getDirY()
 {
-    return dir_y;
+    if(this->dir_y.empty()) return 0;
+
+    return this->dir_y.back();
 }
 
 void Snake::setDirY(int8_t dir_y)
 {
-    this->dir_y = dir_y;
+    this->dir_y.push(dir_y);
+}
+
+std::size_t Snake::getDirLength()
+{
+    return this->dir_x.size();
+}
+
+void Snake::popDir()
+{
+    if (this->dir_x.empty() && this->dir_y.empty()) return;
+    
+    this->dir_x.pop();
+    this->dir_y.pop();
 }
 
 uint16_t Snake::getLength()
@@ -54,8 +71,8 @@ uint16_t Snake::getLength()
 
 void Snake::move()
 {
-    const int8_t newHead_x = (this->body[0]).x + this->dir_x;
-    const int8_t newHead_y = (this->body[0]).y + this->dir_y;
+    const int8_t newHead_x = (this->body[0]).x + this->dir_x.front();
+    const int8_t newHead_y = (this->body[0]).y + this->dir_y.front();
 
     for(uint8_t i = this->length - 1; i > 0; i--)
     {

@@ -118,6 +118,7 @@ void Game::update()
     {
         this->snake->move();
         this->lastSnakeMove = SDL_GetTicks();
+        if(this->snake->getDirLength() > 1) this->snake->popDir();
 
         /* -------- Uncomment only when debugging --------- */
         //this->snake->Snake::printBodysPos(this->snake->getLength());
